@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+/* Define a custom variant for dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+main {
+	max-width: 1280px;
+	margin: auto;
+	min-height: 85vh;
+	padding: 10px;
+}
