@@ -1,16 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-import { Error, MovieDetail, MovieList, Search } from "../pages";
+import { ErrorPage, Home, MovieDetail, Popular, Search, TopRated, Upcoming } from "../pages";
 
 export const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<MovieList />} />
-      <Route path="title/:id" element={<MovieDetail />} />
-      <Route path="movies/popular" element={<MovieList />} />
-      <Route path="movies/toprated" element={<MovieList />} />
-      <Route path="movies/upcoming" element={<MovieList />} />
-      <Route path="search" element={<Search />} />
-      <Route path="*" element={<Error />} />
-    </Routes>
-  );
+	return (
+		<div className="dark:bg-slate-800">
+			<Routes>
+				<Route path="/" element={<Home apiPath="movie/now_playing" />} />
+				<Route path="title/:id" element={<MovieDetail apiPath="movie/" />} />
+				<Route path="movies/popular" element={<Popular apiPath="movie/popular" />} />
+				<Route path="movies/toprated" element={<TopRated apiPath="movie/top_rated" />} />
+				<Route path="movies/upcoming" element={<Upcoming apiPath="movie/upcoming" />} />
+				<Route path="search" element={<Search apiPath="search/movie" />} />
+				<Route path="*" element={<ErrorPage />} />
+			</Routes>
+		</div>
+	);
 };

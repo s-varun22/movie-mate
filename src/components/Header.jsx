@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
 
@@ -9,25 +9,34 @@ export const Header = () => {
 		"text-base block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700";
 
 	const [darkMode, setDarkMode] = useState(true);
-	const [hidden, setHidden] = useState(JSON.parse(localStorage.getItem("darkMode")) || true);
+	const [hidden, setHidden] = useState(localStorage.getItem("darkMode") || false);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		localStorage.setItem("darkMode", JSON.stringify(darkMode));
 		if (darkMode) {
 			document.documentElement.classList.add("dark");
+			localStorage.setItem("darkMode", JSON.stringify(darkMode));
 		} else {
 			document.documentElement.classList.remove("dark");
+			localStorage.setItem("darkMode", JSON.stringify(darkMode));
 		}
 	}, [darkMode]);
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const query = event.target.search.value.trim();
+		event.target.reset(); // Reset the form input
+		return navigate(`/search?query=${query}`);
+	};
 
 	return (
 		<header>
 			<nav className="bg-white border-b-2 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 dark:border-b-1 dark:border-gray-900">
 				<div className="container flex flex-wrap justify-between items-center mx-auto">
-					<Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+					<NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
 						<img src={logo} className="h-8" alt="Logo" />
 						<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Moviemate</span>
-					</Link>
+					</NavLink>
 					<div id="mobile-nav" className="flex md:order-2">
 						<button
 							onClick={() => setDarkMode(!darkMode)}
@@ -95,13 +104,16 @@ export const Header = () => {
 								</svg>
 								<span className="sr-only">Search icon</span>
 							</div>
-							<input
-								type="text"
-								id="search-navbar"
-								className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								placeholder="Search..."
-								autoComplete="off"
-							/>
+							<form onSubmit={handleSubmit}>
+								<input
+									type="text"
+									id="search-web"
+									name="search"
+									className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="Search..."
+									autoComplete="off"
+								/>
+							</form>
 						</div>
 						<button
 							onClick={() => setHidden(!hidden)}
@@ -142,14 +154,16 @@ export const Header = () => {
 										clipRule="evenodd"></path>
 								</svg>
 							</div>
-							<input
-								type="text"
-								id="search-navbar"
-								name="search"
-								className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								placeholder="Search..."
-								autoComplete="off"
-							/>
+							<form onSubmit={handleSubmit}>
+								<input
+									type="text"
+									id="search-mobile"
+									name="search"
+									className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="Search..."
+									autoComplete="off"
+								/>
+							</form>
 						</div>
 						<ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 							<li>
