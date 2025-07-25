@@ -8,7 +8,7 @@ export const MovieDetail = ({ apiPath }) => {
 	const posterUrl = movie.poster_path ? `${import.meta.env.VITE_APP_IMAGE_URL}${movie.poster_path}` : backupPoster;
 	const imdbUrl = movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}` : null;
 
-	useTitle(`Search Results - ${movie.title}`);
+	useTitle(movie.title);
 
 	return (
 		<main>
