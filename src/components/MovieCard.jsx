@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import backupPoster from "../assets/images/backup.png";
+import { useTitle } from "../hooks";
 
 export const MovieCard = ({ movie }) => {
 	const { id, original_title, overview, poster_path } = movie;
 
 	const posterUrl = poster_path ? `${import.meta.env.VITE_APP_IMAGE_URL}${poster_path}` : backupPoster;
+
+	useTitle(movie.title);
 
 	return (
 		<div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 m-3">
