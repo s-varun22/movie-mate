@@ -1,6 +1,11 @@
+import { useFetch, useTitle } from "../hooks";
 import { MovieCard } from "./MovieCard";
 
-export const MovieList = ({ movies }) => {
+export const MovieList = ({ apiPath, title }) => {
+	useTitle(title);
+
+	const { data: movies } = useFetch(apiPath);
+
 	return (
 		<main>
 			<section className="max-w-7xl mx-auto py-7 ">

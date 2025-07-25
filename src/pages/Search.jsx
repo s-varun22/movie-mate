@@ -1,12 +1,15 @@
-import { MovieCard } from "../components";
-import { useFetch } from "../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
+import { MovieCard } from "../components";
+import { useFetch, useTitle } from "../hooks";
 
 export const Search = ({ apiPath }) => {
 	const [searchParams] = useSearchParams();
 	const query = searchParams.get("query") || "";
 
 	const { data: movies } = useFetch(apiPath, query);
+
+	useTitle(`Search Results - ${query}`);
+
 	return (
 		<main>
 			<section className="py-5">

@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import errorImg from "../assets/images/errorImage.png";
+import { useTitle } from "../hooks";
+
 export const ErrorPage = () => {
+	useTitle("Error Page");
+
 	return (
 		<main>
 			<section className="flex flex-col justify-center items-center px-2">

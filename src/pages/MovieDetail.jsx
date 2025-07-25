@@ -1,12 +1,15 @@
-import { Link, useParams } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
+import { useParams } from "react-router-dom";
 import backupPoster from "../assets/images/backup.png";
+import { useFetch, useTitle } from "../hooks";
 
 export const MovieDetail = ({ apiPath }) => {
 	const params = useParams();
 	const { data: movie } = useFetch(`${apiPath}${params.id}`);
 	const posterUrl = movie.poster_path ? `${import.meta.env.VITE_APP_IMAGE_URL}${movie.poster_path}` : backupPoster;
 	const imdbUrl = movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}` : null;
+
+	useTitle(`Search Results - ${movie.title}`);
+
 	return (
 		<main>
 			<section className="flex justify-around flex-wrap py-5">
